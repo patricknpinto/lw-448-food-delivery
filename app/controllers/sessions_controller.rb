@@ -12,7 +12,7 @@ class SessionsController
     # ask for password
     password = @view.ask_for(:password)
     # find the employee with the given username
-    employee = @employees_repository.find(username)
+    employee = @employees_repository.find_by_username(username)
     # validate the password
     if employee && employee.valid_password?(password)
       @view.signed_in

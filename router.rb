@@ -1,15 +1,16 @@
 class Router
-  def initialize(meals_controller, sessions_controller)
+  def initialize(meals_controller, sessions_controller, orders_controller)
     @meals_controller = meals_controller
     @sessions_controller = sessions_controller
+    @orders_controller = orders_controller
     @running = true
   end
 
   def run
-    while @running
-      employee = @sessions_controller.sign_in
+    @employee = @sessions_controller.sign_in
 
-      if employee.manager?
+    while @running
+      if @employee.manager?
         print_manager_menu
         choice = gets.chomp.to_i
         print `clear`
@@ -33,6 +34,7 @@ class Router
     puts "2. List all meals"
     puts "3. Add new customer"
     puts "4. List all customers"
+    puts "5. Create an order"
     puts "8. Exit"
     print "> "
   end
@@ -53,6 +55,7 @@ class Router
     when 2 then @meals_controller.index
     # when 3 then ?
     # when 4 then ?
+    when 5 then @orders_controller.create
     when 8 then stop!
     else puts "Try again..."
     end
@@ -60,7 +63,7 @@ class Router
 
   def delivery_guy_route_action(choice)
     case choice
-    when 1 then puts "TODO: listing orders..."
+    when 1 then @orders_controller.list_my_orders(@employee.id)
     when 2 then puts "TODO: Marking order as delivered..."
     when 8 then stop!
     else puts "Try again..."
