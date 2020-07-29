@@ -38,7 +38,7 @@ class MealsRepository
       meal = Meal.new(row)
       # add meal to @meals array
       @meals << meal
-      @next_id = id
+      @next_id = row[:id]
     end
 
     @next_id += 1

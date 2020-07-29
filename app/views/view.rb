@@ -10,4 +10,12 @@ class View
       puts "#{meal.id}. #{meal.name} (#{meal.price}€)"
     end
   end
+
+  def wrong_credentials
+    puts "Wrong credentials. Try again!"
+  end
+
+  def signed_in
+    puts "Signed in successfully!"
+  end
 end
